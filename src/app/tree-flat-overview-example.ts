@@ -71,6 +71,7 @@ export class TreeFlatOverviewExample {
     { id: "id_2", text: "A2", order: 1, isCorrect: false },
     { id: "id_3", text: "A3", order: 2, isCorrect: false }
   ];
+
   newAnswer: string = "";
   addAnswer(newAnswer: string) {
     this.answers.push({
@@ -85,19 +86,26 @@ export class TreeFlatOverviewExample {
 
   removeAnswer(answer: any) {
     console.table(this.answers);
-    if (this.answers.length == 1) this.answers = [];
-    else this.answers.splice(answer.order, 1);
+    if (this.answers.length <= 1) this.answers = [];
+    else {
+      this.answers.splice(answer.order, 1);
+      var i = 0;
+      for (i = 0; i < this.answers.length; i++) this.answers[i].order = i;
+    }
     console.table(this.answers);
   }
 
   saveAnswers() {
     this.canDrag = false;
-    var hasModelAnswer;
-    if (this.answers.length > 0)
+    var hasModelAnswer = false;
+    if (this.answers.length >= 2) {
       this.answers.forEach(answer => {
         if (answer.isCorrect) hasModelAnswer = true;
       });
+      if (!hasModelAnswer) {this.canDrag = true; console.log("hasModelAnswer is false")};
+    } else {this.canDrag = true;console.log("you should add atleast two options :(")};
   }
+
   dropAnswer(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.answers, event.previousIndex, event.currentIndex);
     console.log(this.answers[event.currentIndex].order);
