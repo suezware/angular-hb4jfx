@@ -1,10 +1,10 @@
-  <mat-form-field appearance="outline">
-    <mat-label>Outline form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
-  </mat-form-field>
-  
+<mat-form-field appearance="outline">
+	<mat-label>Outline form field</mat-label>
+	<input matInput placeholder="Placeholder">
+	<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+	<mat-hint>Hint</mat-hint>
+</mat-form-field>
+
 <h3> Course Outline </h3>
 <mat-accordion>
 
@@ -29,6 +29,14 @@
 					</mat-panel-description>
 				</mat-expansion-panel-header>
 
+				<!-- //------ -->
+				<!-- //------ -->
+				<!-- //------ -->
+				<mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="1" max="100000">
+				</mat-slider>
+				<!-- //------ -->
+				<!-- //------ -->
+				<!-- //------ -->
 				<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
 					<!-- This is the tree node template for leaf nodes -->
 					<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
@@ -285,37 +293,38 @@
 						Drag and drop
 					</mat-panel-description>
 				</mat-expansion-panel-header>
-        <div >
-				<button *ngIf="canDrag==false" type="button" mat-button (click)="canDrag=true">
+				<div>
+					<button *ngIf="canDrag==false" type="button" mat-button (click)="canDrag=true">
       Edit
     </button>
 
-    				<button *ngIf="canDrag==true" type="button" mat-button (click)="saveAnswers()">
+					<button *ngIf="canDrag==true" type="button" mat-button (click)="saveAnswers()">
       Save
     </button>
-    				<button *ngIf="canDrag==true" type="button" mat-button (click)="canDrag=false">
+					<button *ngIf="canDrag==true" type="button" mat-button (click)="canDrag=false">
       Cancel
-    </button> 
-				<div cdkDropList class="example-list" (cdkDropListDropped)="dropAnswer($event)">
-					<div class="example-box" *ngFor="let answer of answers" cdkDrag [cdkDragDisabled]="!canDrag">
-						<mat-icon *ngIf="canDrag==true">drag_indicator</mat-icon>
-						<!-- (focus)="canDrag=true" (focusout)="canDrag=false" -->
-            <span>{{answer.order+1}})</span>
-            <input style=""  [readonly]="canDrag==false" (dblclick)="canDrag=true"  type="text" [value]="answer.text" [ngStyle]="setMyStyles()" >
-						<mat-checkbox [disabled]="canDrag==false" class="example-margin" [(ngModel)]="answer.isCorrect">Correct
-							Answer</mat-checkbox>
-						<button *ngIf="canDrag===true" type="button" mat-button (click)="removeAnswer(answer)"><mat-icon *ngIf="canDrag==true">remove_circle</mat-icon></button>
-						<br/>
+    </button>
+					<div cdkDropList class="example-list" (cdkDropListDropped)="dropAnswer($event)">
+						<div class="example-box" *ngFor="let answer of answers" cdkDrag [cdkDragDisabled]="!canDrag">
+							<mat-icon *ngIf="canDrag==true">drag_indicator</mat-icon>
+							<!-- (focus)="canDrag=true" (focusout)="canDrag=false" -->
+							<span>{{answer.order+1}})</span>
+							<input style=""  [readonly]="canDrag==false" (dblclick)="canDrag=true"  type="text" [value]="answer.text" [ngStyle]="setMyStyles()" >
+							<mat-checkbox [disabled]="canDrag==false" class="example-margin"
+								[(ngModel)]="answer.isCorrect">Correct
+								Answer</mat-checkbox>
+							<button *ngIf="canDrag===true" type="button" mat-button (click)="removeAnswer(answer)"><mat-icon *ngIf="canDrag==true">remove_circle</mat-icon></button>
+							<br/>
               </div>
-					</div>
-					<br/>
-					<br />
-					<div *ngIf="canDrag==true">
-						<input [(ngModel)]="newAnswer" type="text" value="Enter new choice"> <br/>
-						<button type="button" mat-button (click)="addAnswer(newAnswer)">Add answer</button>
-					</div>
+						</div>
+						<br/>
+						<br />
+						<div *ngIf="canDrag==true">
+							<input [(ngModel)]="newAnswer" type="text" value="Enter new choice"> <br/>
+							<button type="button" mat-button (click)="addAnswer(newAnswer)">Add answer</button>
+						</div>
 
-</div>
+					</div>
 			</mat-expansion-panel>
 
 
